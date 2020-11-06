@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const github = require('../helpers/github');
 mongoose
   .set('useNewUrlParser', true)
   .set('useUnifiedTopology', true)
@@ -22,11 +23,13 @@ let repoSchema = mongoose.Schema(
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (body) => {
+  console.log('body', body)
   // This function should save a repo or repos to the MongoDB
   const repo = new Repo(body);
+  console.log('repo', repo)
   repo.save()
-    .then(res => console.log(res))
-    .catch(e => console.log(e));
+    .then(() => github.getReposByUsername(body.owner.login))
+    .catch(e => console.log('error', e));
 }
 
 module.exports.save = save;
