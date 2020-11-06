@@ -13,8 +13,7 @@ let repoSchema = mongoose.Schema(
       login: String,
       avatarUrl: String,
       userId: Number,
-      userUrl: String,
-      reposUrl: String
+      userUrl: String
     },
     repoUrl: String
   }
@@ -22,13 +21,17 @@ let repoSchema = mongoose.Schema(
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (body) => {
+let save = (dbRepo) => {
   // This function should save a repo or repos to the MongoDB
-  console.log('res data from db file' , body)
-  const repo = new Repo(body);
-  repo.save()
-    .then((res) => console.log(res))
-    .catch(e => console.log('error', e));
+  console.log('res data from db file' , dbRepo)
+  const repo = new Repo(dbRepo);
+  Repo.find({repoId: dbRepo.repoId}, (err, docs) => {
+    if (!docs.length) {
+      repo.save()
+        .then((res) => console.log(res))
+        .catch(e => console.log('error', e));
+    }
+  })
 }
 
 module.exports.save = save;
