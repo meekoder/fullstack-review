@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const github = require('../helpers/github');
+
 mongoose
   .set('useNewUrlParser', true)
   .set('useUnifiedTopology', true)
   .connect('mongodb://localhost:27017/fetcher');
 
-let repoSchema = mongoose.Schema(
+const repoSchema = mongoose.Schema(
   {
     repoId: Number,
     repoName: String,
@@ -19,19 +19,18 @@ let repoSchema = mongoose.Schema(
   }
 );
 
-let Repo = mongoose.model('Repo', repoSchema);
+const Repo = mongoose.model('Repo', repoSchema);
 
-let save = (dbRepo) => {
+const save = (dbRepo) => {
   // This function should save a repo or repos to the MongoDB
-  console.log('res data from db file' , dbRepo)
-  const repo = new Repo(dbRepo);
   Repo.find({repoId: dbRepo.repoId}, (err, docs) => {
     if (!docs.length) {
+      const repo = new Repo(dbRepo);
       repo.save()
         .then((res) => console.log(res))
         .catch(e => console.log('error', e));
     }
-  })
+  });
 }
 
 module.exports.save = save;

@@ -14,14 +14,13 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
   const body = req.body;
-
   if (!body) {
     return res.status(400).json({
       success: false,
       error: 'Invalid'
     });
   }
-  github.getReposByUsername('meeko', (data) => {
+  github.getReposByUsername(body.username, (data) => {
     data.forEach(d => {
       const dbRepo = {
         repoId: d.id,
