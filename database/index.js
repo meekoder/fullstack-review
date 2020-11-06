@@ -23,12 +23,11 @@ let repoSchema = mongoose.Schema(
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (body) => {
-  console.log('body', body)
   // This function should save a repo or repos to the MongoDB
+  console.log('res data from db file' , body)
   const repo = new Repo(body);
-  console.log('repo', repo)
   repo.save()
-    .then(() => github.getReposByUsername(body.owner.login))
+    .then((res) => console.log(res))
     .catch(e => console.log('error', e));
 }
 
