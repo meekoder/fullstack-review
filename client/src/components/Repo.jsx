@@ -10,6 +10,7 @@ const Repo = (props) => {
       <a href={props.repo.owner.userUrl}>
         <img src={props.repo.owner.avatarUrl} />
       </a>
+      <h4>{props.repo.stars}</h4>
     </div>
     
   )

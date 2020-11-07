@@ -35,6 +35,7 @@ app.post('/repos', function (req, res) {
         repoId: d.id,
         repoName: d.name,
         repoUrl: d.html_url,
+        stars: d.stargazers_count,
         owner: {
           login: d.owner.login,
           avatarUrl: d.owner.avatar_url,

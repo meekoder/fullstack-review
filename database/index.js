@@ -10,6 +10,7 @@ const repoSchema = mongoose.Schema(
     repoId: Number,
     repoName: String,
     repoUrl: String,
+    stars: Number,
     owner: {
       login: String,
       avatarUrl: String,
@@ -41,19 +42,29 @@ const get25 = (cb) => {
     let convertedDocs = [];
     docs.forEach(x => convertedDocs.push(x.toObject()));
     convertedDocs.sort((a, b) => {
-      const repoNameA = a.repoName.toUpperCase();
-      const repoNameB = b.repoName.toUpperCase();
-      if (repoNameA < repoNameB) {
-        return -1;
-      }
-      if (repoNameA > repoNameB) {
-        return 1;
-      }
-      return 0;
+      return b.stars - a.stars;
     });
     const top25 = convertedDocs.slice(0, 25);
     cb(top25);
-  });
+  })
+  // get first 25 in alphabetical order
+  // Repo.find({}, (err, docs) => {
+  //   let convertedDocs = [];
+  //   docs.forEach(x => convertedDocs.push(x.toObject()));
+  //   convertedDocs.sort((a, b) => {
+  //     const repoNameA = a.repoName.toUpperCase();
+  //     const repoNameB = b.repoName.toUpperCase();
+  //     if (repoNameA < repoNameB) {
+  //       return -1;
+  //     }
+  //     if (repoNameA > repoNameB) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  //   const top25 = convertedDocs.slice(0, 25);
+  //   cb(top25);
+  // });
 }
 
 module.exports = {
