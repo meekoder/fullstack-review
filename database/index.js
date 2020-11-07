@@ -48,7 +48,8 @@ const get25 = () => {
       }
       return 0;
     });
-    console.log(convertedDocs)
+    const top25 = convertedDocs.slice(0, 26);
+    console.log(top25);
   });
   
 }
