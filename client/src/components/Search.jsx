@@ -11,7 +11,7 @@ class Search extends React.Component {
     this.search = this.search.bind(this);
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       term: e.target.value
     });

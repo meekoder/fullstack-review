@@ -1,9 +1,9 @@
 import React from 'react';
+import Repo from './Repo.jsx';
 
 const RepoList = (props) => (
-  <div>
-    <h4> Repo List Component </h4>
-    There are {props.repos.length} repos.
+  <div className='repos'>
+    {props.repos.map(repo => <Repo key={repo.repoId} repo={repo} />)}
   </div>
 )
 

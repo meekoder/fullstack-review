@@ -19,18 +19,18 @@ class App extends React.Component {
       .catch(e => console.log(e));
   }
 
-  search (term) {
+  search(term) {
     console.log(`${term} was searched`);
     axios.post('/repos', {username: term})
       .then(res => console.log(res))
       .catch(e => console.log(e));
   }
 
-  render () {
+  render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
