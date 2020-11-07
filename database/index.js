@@ -33,8 +33,8 @@ const save = (dbRepo) => {
   });
 }
 
-const get25 = () => {
-  Repo.find({}, (err, docs) =>{
+const get25 = (cb) => {
+  Repo.find({}, (err, docs) => {
     let convertedDocs = [];
     docs.forEach(x => convertedDocs.push(x.toObject()));
     convertedDocs.sort((a, b) => {
@@ -48,10 +48,9 @@ const get25 = () => {
       }
       return 0;
     });
-    const top25 = convertedDocs.slice(0, 26);
-    console.log(top25);
+    const top25 = convertedDocs.slice(0, 25);
+    cb(top25);
   });
-  
 }
 
 module.exports = {

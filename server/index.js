@@ -20,6 +20,7 @@ app.post('/repos', function (req, res) {
       error: 'Invalid'
     });
   }
+
   github.getReposByUsername(body.username, (data) => {
     data.forEach(d => {
       const dbRepo = {
@@ -36,11 +37,14 @@ app.post('/repos', function (req, res) {
       repoCtrl.save(dbRepo);
     });
   });
+
 });
 
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
-  repoCtrl.get25();
+  repoCtrl.get25((top) => {
+    res.status(200).json(top)
+  });
 });
 
 const port = 1128;
