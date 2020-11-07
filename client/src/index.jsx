@@ -11,7 +11,12 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
+  }
 
+  componentDidMount() {
+    axios.get('/repos')
+      .then(res => console.log(res))
+      .catch(e => console.log(e));
   }
 
   search (term) {

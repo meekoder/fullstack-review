@@ -9,13 +9,13 @@ const repoSchema = mongoose.Schema(
   {
     repoId: Number,
     repoName: String,
+    repoUrl: String,
     owner: {
       login: String,
       avatarUrl: String,
       userId: Number,
       userUrl: String
-    },
-    repoUrl: String
+    }
   }
 );
 
@@ -33,4 +33,27 @@ const save = (dbRepo) => {
   });
 }
 
-module.exports.save = save;
+const get25 = () => {
+  Repo.find({}, (err, docs) =>{
+    let convertedDocs = [];
+    docs.forEach(x => convertedDocs.push(x.toObject()));
+    convertedDocs.sort((a, b) => {
+      const repoNameA = a.repoName.toUpperCase();
+      const repoNameB = b.repoName.toUpperCase();
+      if (repoNameA < repoNameB) {
+        return -1;
+      }
+      if (repoNameA > repoNameB) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(convertedDocs)
+  });
+  
+}
+
+module.exports = {
+  save,
+  get25
+};
