@@ -22,6 +22,14 @@ app.post('/repos', function (req, res) {
   }
 
   github.getReposByUsername(body.username, (data) => {
+    let counter = data.length;
+    const cb = () => {
+      counter--;
+      if (!counter) {
+        res.sendStatus(200);
+      }
+    };
+
     data.forEach(d => {
       const dbRepo = {
         repoId: d.id,
@@ -34,10 +42,11 @@ app.post('/repos', function (req, res) {
           userUrl: d.owner.html_url,
         }
       };
-      repoCtrl.save(dbRepo);
+      repoCtrl.save(dbRepo, cb);
     });
   });
 
+  // setTimeout(() => res.sendStatus(200), 1000);
 });
 
 app.get('/repos', function (req, res) {

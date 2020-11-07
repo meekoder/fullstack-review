@@ -21,13 +21,16 @@ const repoSchema = mongoose.Schema(
 
 const Repo = mongoose.model('Repo', repoSchema);
 
-const save = (dbRepo) => {
+const save = (dbRepo, cb) => {
   // This function should save a repo or repos to the MongoDB
   Repo.find({repoId: dbRepo.repoId}, (err, docs) => {
     if (!docs.length) {
       const repo = new Repo(dbRepo);
       repo.save()
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          cb();
+        })
         .catch(e => console.log('error', e));
     }
   });
