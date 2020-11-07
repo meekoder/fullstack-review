@@ -2,17 +2,33 @@ import React from 'react';
 
 const Repo = (props) => {
   return (
-    <div className='repo'>
-      <a href={props.repo.repoUrl}>
-        <h3>{props.repo.repoName}</h3>
-      </a>
-      <p>{props.repo.owner.login}</p>
-      <a href={props.repo.owner.userUrl}>
-        <img src={props.repo.owner.avatarUrl} />
-      </a>
-      <h4>{props.repo.stars}</h4>
+    <div className="box">
+      <article className="media">
+        <div className="media-left">
+          <figure className="image is-64x64">
+            <a href={props.repo.owner.userUrl}>
+              <img src={props.repo.owner.avatarUrl} />
+            </a>
+          </figure>
+        </div>
+        <div classNameName="media-content">
+          <div classNameName="content">
+            <p>
+              <a href={props.repo.repoUrl}>
+                <strong>{props.repo.repoName}</strong> 
+              </a>
+            </p>
+            <small>{props.repo.owner.login}</small> 
+            <div>
+              <span className="icon is-small">
+                <i className="far fa-star" aria-hidden="true"></i>
+                <small>{props.repo.stars}</small>
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
-    
   )
 }
 

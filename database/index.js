@@ -46,7 +46,8 @@ const get25 = (cb) => {
     });
     const top25 = convertedDocs.slice(0, 25);
     cb(top25);
-  })
+  });
+
   // get first 25 in alphabetical order
   // Repo.find({}, (err, docs) => {
   //   let convertedDocs = [];

@@ -18,11 +18,16 @@ class Search extends React.Component {
 
   render() {
     return (
-    <div>
-      <h4>Add more repos!</h4>
-      Enter a github username: <input value={this.state.term} onChange={this.onChange}/>       
-      <button onClick={() => {this.props.onSearch(this.state.term)}}> Add Repos </button>
-    </div>
+      <div className="field has-addons">
+        <div className="control">
+          <input className="input" type="text" placeholder="Enter a GitHub Username" value={this.state.term} onChange={this.onChange} />
+        </div>
+        <div className="control">
+          <a className="button is-info" onClick={() => {this.props.onSearch(this.state.term)}}>
+            Add Repos!
+          </a>
+        </div>
+      </div>
     ) 
   }
 }

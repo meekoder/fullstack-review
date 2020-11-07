@@ -13,7 +13,6 @@ class App extends React.Component {
     }
     this.get25 = this.get25.bind(this);
     this.search = this.search.bind(this);
-    this.setter = this.setter.bind(this);
   }
 
   componentDidMount() {
@@ -21,35 +20,35 @@ class App extends React.Component {
   }
 
   get25() {
-    console.log('ok')
-    const fn = this.setter;
     axios.get('/repos')
-      .then(res => fn({repos: res.data}))
+      .then(res => this.setState({repos: res.data}))
       .catch(e => console.log(e));
-  }
-
-  setter(obj) {
-    this.setState(obj);
-    console.log(this.state)
   }
 
   search(term) {
     console.log(`${term} was searched`);
     const fn = this.get25;
     axios.post('/repos', {username: term})
-      .then((res) => {
-        fn();
-        this.forceUpdate();
-      })
+      .then((res) => fn())
       .catch(e => console.log(e));
   }
 
   render() {
-    return (<div>
-      <h1>Github Fetcher</h1>
-      <Search onSearch={this.search} />
-      <RepoList repos={this.state.repos} refresher={this.get25}/>
-    </div>)
+    return (
+      <div>
+        <section className="hero is-dark is-medium">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+              GitHub Fetcher
+              </h1>
+            </div>
+          </div>
+        </section>
+        <Search onSearch={this.search} />
+        <RepoList repos={this.state.repos}/>
+      </div>
+    )
   }
 }
 
