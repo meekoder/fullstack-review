@@ -15,7 +15,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get('/repos')
-      .then(res => console.log(res))
+      .then(res => this.setState({repos: res.data}))
       .catch(e => console.log(e));
   }
 
