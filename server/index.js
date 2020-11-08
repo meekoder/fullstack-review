@@ -27,7 +27,6 @@ app.post('/repos', (req, res) => {
         res.sendStatus(200);
       }
     }
-    console.log(data)
     data.forEach(d => {
       const dbRepo = {
         repoId: d.id,
@@ -43,14 +42,10 @@ app.post('/repos', (req, res) => {
   });
 });
 
-app.get('/repos', repoCtrl.get);
-
-// app.get('/repos', function (req, res) {
-//   // This route should send back the top 25 repos
-//   repoCtrl.get25((top) => {
-//     res.status(200).json(top)
-//   });
-// });
-
+app.get('/repos', (req, res) => {
+  repoModel.get25((top) => {
+    res.status(200).json(top);
+  });
+});
 
 app.listen(port, () => console.log(`listening on port ${port}`));

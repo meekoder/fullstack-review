@@ -1,20 +1,6 @@
 const db = require('./index');
 const github = require('../helpers/github');
 
-
-const getRepos = (cb) => {
-  const query = 'SELECT * FROM repos';
-  db.connection.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-      cb(err, null);
-    } else {
-      console.log(data);
-      cb(null, data);
-    }
-  });
-}
-
 const saveRepo = (repo, cb) => {
   const query = 'INSERT INTO repos SET ? ON DUPLICATE KEY UPDATE ?';
   const args = [repo, repo];
@@ -23,13 +9,30 @@ const saveRepo = (repo, cb) => {
       console.log(err);
       cb(err, null);
     } else {
-      console.log(data);
       cb(null, data);
     }
   });
 }
 
+const get25 = (cb) => {
+  const query = 'SELECT * FROM repos';
+  db.connection.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      cb(err, null);
+    } else {
+      let repos = [];
+      data.forEach(d => repos.push(JSON.parse(JSON.stringify(d))));
+      repos.sort((a, b) => {
+        return b.stars - a.stars;
+      });
+      const top25 = repos.slice(0, 25);
+      cb(top25);
+    }
+  });
+}
+
 module.exports = {
-  getRepos,
-  saveRepo
+  saveRepo,
+  get25
 };
