@@ -3,7 +3,7 @@ import Repo from './Repo.jsx';
 
 const RepoList = (props) => (
   <div className='repos'>
-    {props.repos.map(repo => <Repo key={repo.repoId} repo={repo} />)}
+    {props.repos.map(repo => <Repo key={repo.id} repo={repo} />)}
   </div>
 )
 
